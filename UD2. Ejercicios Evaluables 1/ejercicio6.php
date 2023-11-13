@@ -15,4 +15,3 @@ if ($resultado == 1) {
     echo "Incorrecto";
 }
 ?>
-
