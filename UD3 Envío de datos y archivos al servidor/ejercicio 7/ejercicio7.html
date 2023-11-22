@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Formulario</title>
 </head>
+
 <body>
     <h1>Formulario de Datos Personales</h1>
     <form method="GET" action="ejercicio7.php">
@@ -37,21 +39,22 @@
         <label for="otro">Otro</label><br><br>
 
         <label>Aficiones: </label><br><br>
-        <input type="checkbox" class="checkbox" value="Cine" name="aficiones">
+        <input type="checkbox" class="checkbox" value="Cine" name="aficiones[]">
         <label for="cine">Cine</label><br>
-        <input type="checkbox" class="checkbox" value="Literatura" name="aficiones">
+        <input type="checkbox" class="checkbox" value="Literatura" name="aficiones[]">
         <label for="literatura">Literatura</label><br>
-        <input type="checkbox" class="checkbox" value="Tebeos" name="aficiones">
+        <input type="checkbox" class="checkbox" value="Tebeos" name="aficiones[]">
         <label for="tebeos">Tebeos</label><br>
-        <input type="checkbox" class="checkbox" value="Deporte" name="aficiones">
+        <input type="checkbox" class="checkbox" value="Deporte" name="aficiones[]">
         <label for="deporte">Deporte</label><br>
-        <input type="checkbox" class="checkbox" value="Musica" name="aficiones">
+        <input type="checkbox" class="checkbox" value="Musica" name="aficiones[]">
         <label for="musica">Música</label><br>
-        <input type="checkbox" class="checkbox" value="Television" name="aficiones">
+        <input type="checkbox" class="checkbox" value="Television" name="aficiones[]">
         <label for="television">Televisión</label><br><br>
 
         <button type="submit">Enviar</button>
         <button type="reset">Borrar</button>
     </form>
 </body>
+
 </html>

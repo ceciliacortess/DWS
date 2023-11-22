@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Validación de contenido</title>
+</head>
+<body>
+    <h1>Validar contenido</h1>
+    <form method="POST" action="ejercicio8.php">
+        <label for="dato">Escriba un texto a validar:</label>
+        <input type="text" id="dato" name="dato" required><br><br>
+
+        <label for="filtro">Escoger validación:</label>
+        <input type="radio" id="Email" name="filtro" value="Email" required>
+        <label for="Email">Email</label>
+
+        <input type="radio" id="Sólo números" name="filtro" value="Sólo números" required>
+        <label for="Sólo números">Sólo números</label>
+
+        <input type="radio" id="NIF" name="filtro" value="NIF" required>
+        <label for="NIF">NIF</label><br><br>
+
+        <button type="submit">Validar</button>
+        <button type="reset">Borrar</button>
+    </form>
+</body>
+</html>
