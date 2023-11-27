@@ -29,6 +29,26 @@ button:hover{
     width: 175px;
     height: 50px;
 }
+input[type="submit"]{
+    background-color: #807564;
+    font-size: 20px;
+    color: #FFF2E9;
+    padding: 5px;
+    border: 0px;
+    border-radius: 5px;
+    width: 175px;
+    height: 50px;
+}
+input[type="submit"]:hover{
+    background-color: #FFF2E9;
+    font-size: 20px;
+    padding: 5px;
+    border: 2px solid #807564;
+    color:#807564;
+    border-radius: 5px;
+    width: 175px;
+    height: 50px;
+}
 .tablaAnyadir{
     text-align: left;
     margin: 20px auto;
@@ -70,3 +90,4 @@ input{
     background-color: white;
     border: 1px solid #807564;
 }
+
