@@ -25,11 +25,18 @@ if (isset($_POST['submit'])) {
     if (empty($nombre) || empty($cat) || empty($hab) || empty($poblacion) || empty($direccion)) {
         $error = '<label>Ninguno de los campos puede estar vacío</label>';
     } else {
-        $file_open = fopen("hoteles.csv", "a");
-        $no_rows = count(file("hoteles.csv"));
-        if ($no_rows > 1) {
-            $no_rows = ($no_rows - 1) + 1;
+        $regex_categoria = '/^\d+\*$/';
+        if (!preg_match($regex_categoria, $cat)) {
+            $error = '<label>La categoría debe ser un número seguido de un asterisco</label>';
+        } else {
+            $file_open = fopen("hoteles.csv", "a");
+            $no_rows = count(file("hoteles.csv"));
+            if ($no_rows > 1) {
+                $no_rows = ($no_rows - 1) + 1;
+            }
         }
+
+
         $form_data = array(
             'Nombre' => $nombre,
             'Categoría' => $cat,
@@ -87,9 +94,10 @@ if (isset($_POST['submit'])) {
         <input type="submit" name="submit" value="Añadir">
         <br><br>
     </form>
-    
+
     <a href="ejercicioprueba.html"><button>Volver</button></a>
     <br><br>
-    
+
 </body>
+
 </html>
