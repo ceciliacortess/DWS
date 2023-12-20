@@ -8,37 +8,55 @@
 </head>
 
 <body>
-<img src="img/listadohoteles.png">
-<a href="ejercicioprueba.html"><button>Volver</button></a>
-<?php
-    echo "<table class='tablaVer'>";
-    $start_row = 1;
-    if (($csv_file = fopen("hoteles.csv", "r")) !== FALSE) {
-        while (($read_data = fgetcsv($csv_file, 1000, ",")) !== FALSE) {
-            $colum_count = count($read_data);
-            if ($start_row === 1) {
-                echo '<thead><tr>';
-            } else {
-                echo '<tr>';
-            }
-            for ($c = 0; $c < $colum_count; $c++) {
-                if ($start_row === 1) {
-                    echo '<th>' . $read_data[$c] . '</th>';
-                } else {
-                    echo '<td>' . $read_data[$c] . '</td>';
-                }
-            }
-            if ($start_row === 1) {
-                echo '</tr></thead><tbody>';
-            } else {
-                echo '</tr>';
-            }
+    <img src="img/listadohoteles.png">
+    <a href="ejercicioprueba.html"><button>Volver</button></a>
+    <?php
+    // Configuración de la conexión a la base de datos
+    $host = "localhost";
+    $usuario = "Cecilia";
+    $contrasena = "Cecilia";
+    $base_de_datos = "hoteles";
 
-            $start_row++;
-        }
-        fclose($csv_file);
-        echo '</tbody></table>';
+    $conexion = new mysqli($host, $usuario, $contrasena, $base_de_datos);
+
+    // Verificar la conexión
+    if ($conexion->connect_error) {
+        die("Error de conexión: " . $conexion->connect_error);
     }
+
+    // Consulta SQL para obtener todos los datos de la tabla
+    $sql = "SELECT * FROM hoteles";
+    $result = $conexion->query($sql);
+
+    // Mostrar los datos en una tabla HTML
+    if ($result->num_rows > 0) {
+        echo "<table class='tablaVer'><thead><tr>";
+
+        // Obtener nombres de columnas
+        $row = $result->fetch_assoc();
+        foreach ($row as $key => $value) {
+            echo "<th>" . $key . "</th>";
+        }
+
+        echo "</tr></thead><tbody>";
+
+        // Mostrar datos de la tabla
+        $result->data_seek(0); // Reiniciar el puntero del resultado
+        while ($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            foreach ($row as $value) {
+                echo "<td>" . $value . "</td>";
+            }
+            echo "</tr>";
+        }
+
+        echo "</tbody></table>";
+    } else {
+        echo "No se encontraron resultados.";
+    }
+
+    // Cerrar la conexión
+    $conexion->close();
     ?>
 </body>
 

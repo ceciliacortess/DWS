@@ -4,16 +4,16 @@ $username = "Cecilia";
 $password = "Cecilia";
 $dbname = "hoteles";
 
-
 // Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
-
 
 // Verificar la conexión
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
 
+// Inicializar la variable de mensaje
+$mensaje = '';
 
 // Script SQL
 $sql = "
@@ -40,14 +40,33 @@ $sql = "
       ('Alkazar', '1*', 18, '46002 Valencia', 'Mosén Femades; 11');
 ";
 
-
 // Ejecutar script
 if ($conn->multi_query($sql) === TRUE) {
-    echo '<script>alert("Base de datos restaurada correctamente");</script>';
+    $mensaje = "Base de datos restaurada correctamente";
 } else {
-    echo '<script>alert("Error al restaurar la base de datos");</script>';
+    $mensaje = "Error al restaurar la base de datos: " . $conn->error;
 }
-
 
 // Cerrar conexión
 $conn->close();
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurar base de datos</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+    <?php ?>
+    <br><br>
+    <img src="img/gestiondehoteles.png">
+    <label><?php echo $mensaje; ?></label><br><br>
+    <a href="ejercicioprueba.html"><button>Volver</button></a>
+    <br><br>
+</body>
+
+</html>

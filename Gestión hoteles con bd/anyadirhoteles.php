@@ -29,29 +29,38 @@ if (isset($_POST['submit'])) {
         if (!preg_match($regex_categoria, $cat)) {
             $error = '<label>La categoría debe ser un número seguido de un asterisco</label>';
         } else {
-            $file_open = fopen("hoteles.csv", "a");
-            $no_rows = count(file("hoteles.csv"));
-            if ($no_rows > 1) {
-                $no_rows = ($no_rows - 1) + 1;
+            // Configuración de la conexión a la base de datos
+            $host = "localhost";
+            $usuario = "Cecilia";
+            $contrasena = "Cecilia";
+            $base_de_datos = "hoteles";
+
+            $conexion = new mysqli($host, $usuario, $contrasena, $base_de_datos);
+
+            // Verificar la conexión
+            if ($conexion->connect_error) {
+                die("Error de conexión: " . $conexion->connect_error);
             }
+
+            // Preparar la consulta SQL
+            $sql = "INSERT INTO hoteles (Nombre, Categoria, Habitaciones, Poblacion, Direccion)
+                    VALUES ('$nombre', '$cat', '$hab', '$poblacion', '$direccion')";
+
+            // Ejecutar la consulta
+            if ($conexion->query($sql) === TRUE) {
+                $error = '<label>Hotel añadido correctamente</label>';
+                $nombre = '';
+                $cat = '';
+                $hab = '';
+                $poblacion = '';
+                $direccion = '';
+            } else {
+                $error = '<label>Error al añadir el hotel: ' . $conexion->error . '</label>';
+            }
+
+            // Cerrar la conexión
+            $conexion->close();
         }
-
-
-        $form_data = array(
-            'Nombre' => $nombre,
-            'Categoría' => $cat,
-            'Habitaciones' => $hab,
-            'Población' => $poblacion,
-            'Dirección' => $direccion
-        );
-        fputcsv($file_open, $form_data);
-        fclose($file_open);
-        $error = '<label>Hotel añadido correctamente</label>';
-        $nombre = '';
-        $cat = '';
-        $hab = '';
-        $poblacion = '';
-        $direccion = '';
     }
 }
 ?>
