@@ -1,0 +1,93 @@
+body{
+    text-align: center;
+    background-color: #FFF2E9;
+    margin: 0 auto;
+}
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+button{
+    background-color: #807564;
+    font-size: 20px;
+    color: #FFF2E9;
+    padding: 5px;
+    border: 0px;
+    border-radius: 5px;
+    width: 175px;
+    height: 50px;
+}
+button:hover{
+    background-color: #FFF2E9;
+    font-size: 20px;
+    padding: 5px;
+    border: 2px solid #807564;
+    color:#807564;
+    border-radius: 5px;
+    width: 175px;
+    height: 50px;
+}
+input[type="submit"]{
+    background-color: #807564;
+    font-size: 20px;
+    color: #FFF2E9;
+    padding: 5px;
+    border: 0px;
+    border-radius: 5px;
+    width: 175px;
+    height: 50px;
+}
+input[type="submit"]:hover{
+    background-color: #FFF2E9;
+    font-size: 20px;
+    padding: 5px;
+    border: 2px solid #807564;
+    color:#807564;
+    border-radius: 5px;
+    width: 175px;
+    height: 50px;
+}
+.tablaAnyadir{
+    text-align: left;
+    margin: 20px auto;
+    font-size: 25px;
+    width: auto;
+}
+.tablaVer {
+    border: 1px solid #807564;
+    text-align: left;
+    border-collapse: collapse; 
+    margin: 20px auto;
+    font-size: 25px;
+    width: 95%;
+}
+
+tbody, td, tr, th {
+    font-size: 25px;
+    padding: 5px;
+}
+
+thead{
+    color: #FFF2E9;
+    border: 1px solid #807564;
+    padding: 5px;
+    background-color: #807564;
+    font-size: 25px;
+}
+
+label{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    color:#807564;
+}
+
+input{
+    border-radius: 10px;
+    width: 500px;
+    height: 30px;
+    background-color: white;
+    border: 1px solid #807564;
+}
+
