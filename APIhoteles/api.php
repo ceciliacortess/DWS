@@ -4,7 +4,8 @@ $username = "Cecilia";
 $password = "Cecilia";
 $dbname = "hoteles";
 
-function obtenerHoteles() {
+function obtenerHoteles()
+{
     global $servername, $username, $password, $dbname;
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
@@ -25,7 +26,8 @@ function obtenerHoteles() {
     }
 }
 
-function obtenerHotelId($id) {
+function obtenerHotelId($id)
+{
     global $servername, $username, $password, $dbname;
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
@@ -42,33 +44,27 @@ function obtenerHotelId($id) {
         echo json_encode(["success" => false, "message" => "Hotel no encontrado"]);
     }
 }
-
-function insertarHotel($datosHotel) {
+function insertarHotel($nombre, $cat, $hab, $poblacion, $direccion)
+{
     global $servername, $username, $password, $dbname;
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
-        die(json_encode(["success" => false, "message" => "La conexión a la base de datos ha fallado"]));
+        return ["success" => false, "message" => "La conexión a la base de datos falló"];
     }
-    
-    $nombre = $datosHotel['nombre'] ?? '';
-    $cat = $datosHotel['cat'] ?? '';
-    $hab = $datosHotel['hab'] ?? '';
-    $poblacion = $datosHotel['poblacion'] ?? '';
-    $direccion = $datosHotel['direccion'] ?? '';
-    
     $sql = "INSERT INTO hoteles (Nombre, Categoria, Habitaciones, Poblacion, Direccion)
-    VALUES ('$nombre', '$cat', '$hab', '$poblacion', '$direccion')";
-    
+            VALUES ('$nombre', '$cat', '$hab', '$poblacion', '$direccion')";
+
     if ($conn->query($sql) === TRUE) {
         $conn->close();
-        echo json_encode(["success" => true, "message" => "Hotel insertado correctamente"]);
+        return ["success" => true, "message" => "Hotel añadido correctamente"];
     } else {
         $conn->close();
-        echo json_encode(["success" => false, "message" => "Error al insertar el hotel: " . $conn->error]);
+        return ["success" => false, "message" => "Error al añadir el hotel: " . $conn->error];
     }
 }
 
-function modificarHotel($id, $datosHotel) {
+function modificarHotel($id, $datosHotel)
+{
     global $servername, $username, $password, $dbname;
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
@@ -80,9 +76,9 @@ function modificarHotel($id, $datosHotel) {
     $hab = $datosHotel['hab'] ?? '';
     $poblacion = $datosHotel['poblacion'] ?? '';
     $direccion = $datosHotel['direccion'] ?? '';
-    
-    $sql = "UPDATE hoteles SET nombre='$nombre', cat= '$cat', hab= '$hab', poblacion= '$poblacion', direccion='$direccion' WHERE id=$id";
-    
+
+    $sql = "UPDATE hoteles SET Nombre='$nombre', Categoria='$cat', Habitaciones='$hab', Poblacion='$poblacion', Direccion='$direccion' WHERE id=$id";
+
     if ($conn->query($sql) === TRUE) {
         $conn->close();
         echo json_encode(["success" => true, "message" => "Hotel modificado correctamente"]);
@@ -92,7 +88,8 @@ function modificarHotel($id, $datosHotel) {
     }
 }
 
-function eliminarHotel($id) {
+function eliminarHotel($id)
+{
     global $servername, $username, $password, $dbname;
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
@@ -100,7 +97,7 @@ function eliminarHotel($id) {
     }
 
     $sql = "DELETE FROM hoteles WHERE id = $id";
-    
+
     if ($conn->query($sql) === TRUE) {
         $conn->close();
         echo json_encode(["success" => true, "message" => "Hotel eliminado correctamente"]);
@@ -118,12 +115,19 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         obtenerHoteles();
     }
 } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $datosHotel = json_decode(file_get_contents("php://input"), true);
-    insertarHotel($datosHotel);
+    $data = json_decode(file_get_contents("php://input"), true);
+
+    $nombre = isset($data['nombre']) ? $data['nombre'] : '';
+    $cat = isset($data['cat']) ? $data['cat'] : 0;
+    $hab = isset($data['hab']) ? $data['hab'] : 0;
+    $poblacion = isset($data['pob']) ? $data['pob'] : '';
+    $direccion = isset($data['dir']) ? $data['dir'] : '';
+
+    $response = insertarHotel($nombre, $cat, $hab, $poblacion, $direccion);
 } elseif ($_SERVER["REQUEST_METHOD"] == "PUT") {
     $hotelId = $_GET['id'] ?? null;
     $datosHotel = json_decode(file_get_contents("php://input"), true);
-    
+
     if (!empty($hotelId)) {
         modificarHotel($hotelId, $datosHotel);
     } else {
@@ -131,7 +135,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
 } elseif ($_SERVER["REQUEST_METHOD"] == "DELETE") {
     $hotelId = $_GET['id'] ?? null;
-    
+
     if (!empty($hotelId)) {
         eliminarHotel($hotelId);
     } else {
@@ -140,4 +144,3 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 } else {
     echo json_encode(["success" => false, "message" => "Método no permitido"]);
 }
-?>
