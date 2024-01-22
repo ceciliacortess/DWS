@@ -1,3 +1,6 @@
+SET @username = 'Cecilia';
+SET @password = 'Cecilia';
+
 DROP TABLE IF EXISTS hoteles;
 
 CREATE TABLE hoteles (
@@ -21,5 +24,3 @@ VALUES
   ('Alkazar', '1*', 18, '46002 Valencia', 'Mosén Femades; 11');
 
 
-SET @username = 'Cecilia';
-SET @password = 'Cecilia';
