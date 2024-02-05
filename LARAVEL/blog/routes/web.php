@@ -13,15 +13,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Http\Controllers\PostController;
+
+Route::resource('posts', PostController::class)->only(['index', 'show', 'create', 'edit']);
+
+Route::get('/posts/editar', 'PostController@editGeneric')->name('posts.edit.generic');
+
+
+
+
 Route::get('/', function () {
     return view('posts.inicio');
 })->name('inicio');
 
 Route::get('/posts', function () {
-    return view('posts.listado');
-})->name('posts_listado');
+    return view('posts.index');
+})->name('posts.index');
 
 Route::get('/posts/{id}', function ($id) {
-    return view('posts.ficha')-> with(['id' => $id]);
-})->where('id', '[0-9]+')->name('posts_ficha');
+    return view('posts.show')-> with(['id' => $id]);
+})->where('id', '[0-9]+')->name('posts.show');
 
