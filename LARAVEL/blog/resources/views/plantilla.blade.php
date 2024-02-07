@@ -12,5 +12,9 @@
     <div>
         @yield('contenido')
     </div>
+    <div class="text-right">
+        Fecha actual: {{ \App\Helpers\DateHelper::fechaActual('d/m/Y') }}
+    </div>
+
 </body>
 </html>

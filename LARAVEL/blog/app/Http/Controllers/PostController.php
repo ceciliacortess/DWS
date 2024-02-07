@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -19,7 +20,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return "Nuevo post";
+        return redirect()->route('inicio');
     }
 
     /**
@@ -43,15 +44,16 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        // Obtén el post por su ID (si es necesario)
-        return "Editar post";
+        return redirect()->route('inicio');
     }
+    /**
+     * public function editGeneric()
+     *  {
+     *
+     *       return redirect()->route('inicio');
+     *   }
+     */
 
-    public function editGeneric()
-    {
-        // Obtén el post por su ID (si es necesario)
-        return "Editar post";
-    }
 
     /**
      * Update the specified resource in storage.

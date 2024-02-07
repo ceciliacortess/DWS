@@ -17,7 +17,7 @@ use App\Http\Controllers\PostController;
 
 Route::resource('posts', PostController::class)->only(['index', 'show', 'create', 'edit']);
 
-Route::get('/posts/editar', 'PostController@editGeneric')->name('posts.edit.generic');
+//Route::get('/posts/editar', 'PostController@editGeneric')->name('posts.editGeneric');
 
 
 
@@ -34,3 +34,8 @@ Route::get('/posts/{id}', function ($id) {
     return view('posts.show')-> with(['id' => $id]);
 })->where('id', '[0-9]+')->name('posts.show');
 
+/* Route::get('/posts/edit/{id}', function ($id) {
+    return view('posts.edit')-> with(['id' => $id]);
+})->where('id', '[0-9]+')->name('posts.edit');
+
+ */

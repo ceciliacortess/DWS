@@ -5,8 +5,6 @@
             <li class="nav-item active"><a class="nav-link" href="{{ route('inicio') }}">Inicio</a></li>
             <li class="nav-item active"><a class="nav-link" href="{{ route('posts.index') }}">Listado de Posts</a></li>
             <li class="nav-item active"><a class="nav-link" href="{{ route('posts.create') }}">Nuevo Post</a></li>
-            <li class="nav-item active"><a class="nav-link" href="{{ route('posts.edit.generic') }}">Editar Post</a></li>
-
         </ul>
     </div>
 
