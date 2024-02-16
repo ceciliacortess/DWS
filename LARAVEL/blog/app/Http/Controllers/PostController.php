@@ -7,67 +7,42 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return view('posts.index');
+        $posts = Post::orderBy('titulo', 'asc')->paginate(5);
+        return view('posts.index', compact('posts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($id)
     {
-        return redirect()->route('inicio');
+        $post = Post::findOrFail($id);
+        return view('posts.show', compact('post'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->delete();
+        return redirect()->route('posts.index')->with('success', 'Post eliminado correctamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // Métodos para pruebas temporales
+    public function nuevoPrueba()
     {
-        return view('posts.show', ['id' => $id]);
+        $post = new Post();
+        $post->titulo = 'Título ' . rand();
+        $post->contenido = 'Contenido ' . rand();
+        $post->save();
+        return redirect()->route('posts.index')->with('success', 'Post creado correctamente.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
+    public function editarPrueba($id)
     {
-        return redirect()->route('inicio');
-    }
-    /**
-     * public function editGeneric()
-     *  {
-     *
-     *       return redirect()->route('inicio');
-     *   }
-     */
-
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $post = Post::findOrFail($id);
+        $post->titulo = 'Título ' . rand();
+        $post->contenido = 'Contenido ' . rand();
+        $post->save();
+        return redirect()->route('posts.index')->with('success', 'Post editado correctamente.');
     }
 }
+?>

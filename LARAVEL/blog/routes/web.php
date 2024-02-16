@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +19,10 @@ Route::resource('posts', PostController::class)->only(['index', 'show', 'create'
 //Route::get('/posts/editar', 'PostController@editGeneric')->name('posts.editGeneric');
 
 
+Route::get('/libros/nuevoPrueba', [PostController::class, 'nuevoPrueba']);
+Route::get('/libros/editarPrueba/{id}', [PostController::class, 'editarPrueba']);
+
+// Asegúrate de que las rutas existentes no tengan restricciones, o edita según sea necesario.
 
 
 Route::get('/', function () {
