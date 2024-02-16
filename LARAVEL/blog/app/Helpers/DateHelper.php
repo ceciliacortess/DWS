@@ -9,4 +9,3 @@ class DateHelper
         return date($formato);
     }
 }
-?>
