@@ -4,11 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\PostRequest;
+
 
 use App\Models\Post;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
+
+
     /**
      * Display a listing of the resource.
      */
@@ -23,17 +33,31 @@ class PostController extends Controller
      */
     public function create()
     {
-        // Esta función no se utiliza en este caso, redireccionamos a otra ruta
-        return redirect()->route('inicio');
+        return view('posts.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PostRequest  $request)
     {
-        // Esta función no se utiliza en este caso, ya que no hay un formulario de creación de posts
+        // Validar los datos del formulario
+        $request->validate([
+            'titulo' => 'required|string|max:255',
+            'contenido' => 'required|string',
+        ]);
+
+        // Crear un nuevo post con los datos del formulario
+        $post = new Post();
+        $post->titulo = $request->titulo;
+        $post->contenido = $request->contenido;
+        $post->user_id = 1; // Asignar el ID del usuario autenticado
+        $post->save();
+
+        // Redirigir al listado principal de posts
+        return redirect()->route('posts.index');
     }
+
 
     /**
      * Display the specified resource.
@@ -89,7 +113,7 @@ class PostController extends Controller
          $contenido = "Contenido " . rand();
 
          // Obtener el ID del usuario autenticado
-         $usuario_id = 3;
+         $usuario_id = 1;
 
          // Crear el nuevo post con el ID del usuario
          $post = new Post();
