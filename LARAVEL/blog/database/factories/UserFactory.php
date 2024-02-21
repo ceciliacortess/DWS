@@ -12,16 +12,18 @@ use Illuminate\Support\Facades\Hash;
 class UserFactory extends Factory
 {
     /**
-     * The current password being used by the factory.
+     * The name of the factory's corresponding model.
+     *
+     * @var string
      */
-    protected static ?string $password;
+    protected $model = User::class;
 
     /**
      * Define the model's default state.
      *
-     * @return array<string, mixed>
+     * @return array
      */
-    public function definition(): array
+    public function definition()
     {
         $username = $this->faker->userName;
 

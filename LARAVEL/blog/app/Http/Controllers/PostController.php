@@ -8,6 +8,7 @@ use App\Http\Requests\PostRequest;
 
 
 use App\Models\Post;
+use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
@@ -39,7 +40,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PostRequest  $request)
+    public function store(Request $request)
     {
         // Validar los datos del formulario
         $request->validate([
@@ -72,7 +73,7 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($postId=null)
+    public function edit($postId = null)
     {
         // Esta función no se utiliza en este caso, redireccionamos a otra ruta
         return redirect()->route('inicio');
@@ -107,23 +108,23 @@ class PostController extends Controller
      */
 
 
-     public function nuevoPrueba()
-     {
-         $titulo = "Título " . rand();
-         $contenido = "Contenido " . rand();
+    public function nuevoPrueba()
+    {
+        $titulo = "Título " . rand();
+        $contenido = "Contenido " . rand();
 
          // Obtener el ID del usuario autenticado
-         $usuario_id = 1;
+         $usuario_id = 3;
 
-         // Crear el nuevo post con el ID del usuario
-         $post = new Post();
-         $post->titulo = $titulo;
-         $post->contenido = $contenido;
-         $post->user_id = $usuario_id;
-         $post->save();
+        // Crear el nuevo post con el ID del usuario
+        $post = new Post();
+        $post->titulo = $titulo;
+        $post->contenido = $contenido;
+        $post->user_id = $usuario_id;
+        $post->save();
 
-         return redirect()->route('posts.index');
-     }
+        return redirect()->route('posts.index');
+    }
 
 
     /**
@@ -139,7 +140,4 @@ class PostController extends Controller
         $post->save();
         return redirect()->route('posts.index');
     }
-
-
-
 }
