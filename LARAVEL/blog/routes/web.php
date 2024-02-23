@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 use App\Helpers\DateHelper;
 use App\Http\Controllers\AuthLoginController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Api\PostControllerApi;
 
 Route::get('/', function () {
     return view('posts.inicio', ['fechaActual' => DateHelper::fechaActual()]);
@@ -45,3 +46,13 @@ Route::get('/logout', function () {
     Auth::logout();
     return redirect('/');
 })->name('logout');
+
+Route::group(['prefix' => 'api'], function () {
+    Route::get('/posts', [PostControllerApi::class, 'index']); // Listar todos los posts
+    Route::get('/posts/{id}', [PostControllerApi::class, 'show']); // Mostrar un post específico
+    Route::post('/posts', [PostControllerApi::class, 'store']); // Crear un nuevo post
+    Route::put('/posts/{id}', [PostControllerApi::class, 'update']); // Actualizar un post
+    Route::delete('/posts/{id}', [PostControllerApi::class, 'destroy']); // Eliminar un post
+});
+
+

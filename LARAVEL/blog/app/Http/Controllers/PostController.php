@@ -39,7 +39,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PostRequest  $request)
+    public function store(PostRequest $request)
     {
         // Validar los datos del formulario
         $request->validate([
@@ -51,12 +51,13 @@ class PostController extends Controller
         $post = new Post();
         $post->titulo = $request->titulo;
         $post->contenido = $request->contenido;
-        $post->user_id = 1; // Asignar el ID del usuario autenticado
+        $post->user_id = Auth::id(); // Asignar el ID del usuario autenticado
         $post->save();
 
         // Redirigir al listado principal de posts
         return redirect()->route('posts.index');
     }
+
 
 
     /**
@@ -72,7 +73,7 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($postId=null)
+    public function edit($postId = null)
     {
         // Esta función no se utiliza en este caso, redireccionamos a otra ruta
         return redirect()->route('inicio');
@@ -114,23 +115,32 @@ class PostController extends Controller
      */
 
 
-     public function nuevoPrueba()
-     {
-         $titulo = "Título " . rand();
-         $contenido = "Contenido " . rand();
+    public function nuevoPrueba()
+    {
+        $titulo = "Título " . rand();
+        $contenido = "Contenido " . rand();
 
-         // Obtener el ID del usuario autenticado
-         $usuario_id = 1;
 
-         // Crear el nuevo post con el ID del usuario
-         $post = new Post();
-         $post->titulo = $titulo;
-         $post->contenido = $contenido;
-         $post->user_id = $usuario_id;
-         $post->save();
+        // Obtener el ID del usuario autenticado
+        $usuario_id = auth()->id();
 
-         return redirect()->route('posts.index');
-     }
+
+        // Verificar si hay un usuario autenticado
+        if ($usuario_id) {
+            // Crear el nuevo post con el ID del usuario
+            $post = new Post();
+            $post->titulo = $titulo;
+            $post->contenido = $contenido;
+            $post->user_id = $usuario_id;
+            $post->save();
+        } else {
+
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para crear un post.');
+        }
+
+
+        return redirect()->route('posts.index');
+    }
 
 
     /**
@@ -151,7 +161,4 @@ class PostController extends Controller
         $post->save();
         return redirect()->route('posts.index');
     }
-
-
-
 }
