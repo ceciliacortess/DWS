@@ -98,7 +98,14 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
+
+        // Verificar si el usuario autenticado es el autor del post
+        if ($post->user_id != Auth::id()) {
+            abort(403, 'No tienes permiso para eliminar este post.');
+        }
+
         $post->delete();
+
         return redirect()->route('posts.index');
     }
 
@@ -131,6 +138,11 @@ class PostController extends Controller
      */
     public function editarPrueba($id)
     {
+        $post = Post::findOrFail($id);
+        if ($post->user_id != Auth::id()) {
+            abort(403, 'No tienes permiso para editar este post.');
+        }
+
         $titulo = "Título " . rand();
         $contenido = "Contenido " . rand();
         $post = Post::findOrFail($id);
